@@ -1,9 +1,28 @@
-const express = require('express')
-var bodyParser = require('body-parser')
-var bodyParser = require('body-parser')
-
+const express = require('express');
+var bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
-const port = 3000;
+//const usersController = require('./controllers/usersController');
+
+const {getUsers,addUsers}=require('./controllers/userController');
+const port=3000;
+
+mongoose.connect('mongodb+srv://israzafariqbal:rYx4P71GbW1NLCfR@nodejs.d78e5.mongodb.net//')
+  .then(() => console.log('Connected!')).catch((err)=>console.log(err));
+
+
+  app.get('/getUsers',getUsers);
+  app.get('./addusers',addUsers);
+
+
+
+
+
+
+
+
+
+
 const productData = [{ "Productname": "Mobile" }, { "Productname": "Mobile" }, { "Productname": "Laptop" }, { "Productname": "Mobile" },];
 app.get('/home', function (req, res) {
     const number1 = 33;
@@ -13,13 +32,8 @@ app.get('/home', function (req, res) {
 app.get('/', function (req
     , res
 ) {
-    res.send({message:`Home Screen`,data:req.query})
+    res.send({ message: `Home Scree`, data: req.query })
 });
-
-
-
-
-
 
 app.use(bodyParser.json());
 
@@ -28,20 +42,20 @@ app.get('/users', (req, res) => {
     res.send(users)
 });
 app.post('/addusers', (req, res) => {
-    const querydata =req.query;
+    const querydata = req.query;
     users.push(req.body);
-    res.status(200).send({status:true,message:"User Data Added",data:users})
+    res.status(200).send({ status: true, message: "User Data Added", data: users })
 });
 app.put('/add-users', (req, res) => {
-    const querydata =req.query;
-    res.status(401).send({status:true,message:"User Data Added",data:req.query})
+    const querydata = req.query;
+    res.status(401).send({ status: true, message: "User Data Added", data: req.query })
 });
 app.delete('/delete-users', (req, res) => {
-    const querydata =req.query;
-    res.status(401).send({status:true,message:"User Data Added",data:req.query})
-});app.patch('/update-users', (req, res) => {
-    const querydata =req.query;
-    res.status(200).send({status:true,message:"User Data Added",data:req.query})
+    const querydata = req.query;
+    res.status(401).send({ status: true, message: "User Data Added", data: req.query })
+}); app.patch('/update-users', (req, res) => {
+    const querydata = req.query;
+    res.status(200).send({ status: true, message: "User Data Added", data: req.query })
 });
 
 
@@ -297,5 +311,3 @@ const users = [
         }
     }
 ]
-    
-
